@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1> Home</h1>
+  <p>Welcome to Right Plans!</p>
+  <h2>Dynamic content</h2>
+  <p>The plans system has the following record counts:</p>
+  <ul>
+    <li><strong>Form factor total:</strong> {{ num_form_factors }}</li>
+    <li><strong>Released plans:</strong> {{ num_finalize_form_factors }}</li>
+    <li><strong>Authors:</strong> {{ num_authors }}</li>
+    <li><strong>Contractors:</strong> {{ num_company_users }}</li>
+    <li><strong>Private users:</strong> {{ num_private_users }}</li>
+  </ul>
+{% endblock %}
