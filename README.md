@@ -1,0 +1,2 @@
+# plans
+django, JS, python
