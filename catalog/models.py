@@ -38,14 +38,14 @@ class PrivateUser(models.Model):
         """String for representing the Model object."""
         return self.name
 
-class FormFactor(models.Model):
+class Plan(models.Model):
     """Model representing a form factor on the development stage. Modifying available here"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular form factor across whole catalog')
     name = models.CharField(max_length=200)
 
     finalized = models.BooleanField(default=False, help_text='True, if this is moderated finalised formfactor')
     release_date = models.DateField(null=True, blank=True)
-    # for cloning finalised ff's:
+    # for cloning finalised plans:
     ancestor_id = models.UUIDField(null=True)
 
     company_user = models.ForeignKey('CompanyUser', on_delete=models.SET_NULL, null=True)
@@ -71,5 +71,5 @@ class FormFactor(models.Model):
     
     def get_absolute_url(self):
         """Returns the url to access a detail record for this FormFactor."""
-        return reverse('form-factor-detail', args=[str(self.id)])
+        return reverse('plan-detail', args=[str(self.id)])
 

@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Finalized plans List</h1>
+  {% if finalized_plans_list %}
+  <ul>
+    {% for plan in finalized_plans_list %}
+      <li>
+        <a href="{{ plan.get_absolute_url }}">{{ plan.name}}</a> ({{plan.author}})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no finalized plans in the catalog yet.</p>
+  {% endif %}       
+{% endblock %}

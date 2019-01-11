@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Name: {{ plan.name }}</h1>
+
+  <p><strong>Author:</strong> <a href="{% url 'author-detail' plan.author.pk %}">{{ plan.author }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>Finalized:</strong> {{ plan.finalized }}</p>
+  <p><strong>Release Date:</strong> {{ plan.release_date }}</p>  
+  <p><strong>Genre:</strong> {% for genre in book.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>  
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Private users</h4>
+
+    {% for private_user in plan.planinstance_set.all %}
+      <hr>
+      {% if plan.private_user != NULL %}
+        <p><strong>Private user:</strong> {{private_user.name}}</p>
+      {% endif %}
+      
+    {% endfor %}
+  </div>
+{% endblock %}
