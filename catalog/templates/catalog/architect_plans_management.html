@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>My plans</h1>
+
+    {% if plan_list %}
+    <ul>
+
+      {% for plan in plan_list %} 
+      <li >
+        <a href="{% url 'plan-detail' plan.pk %}">{{plan.name}}</a> ({{ plan.creation_date }}, {{ plan.apply_date }}))        
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>You haven't plans.</p>
+    {% endif %}       
+{% endblock %}

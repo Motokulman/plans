@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from catalog.models import Author, CompanyUser, PrivateUser, Plan
+from catalog.models import Architect, Contractor, Consumer, Plan
 
-admin.site.register(Author)
-admin.site.register(CompanyUser)
-admin.site.register(PrivateUser)
+admin.site.register(Architect)
+admin.site.register(Contractor)
+admin.site.register(Consumer)
 admin.site.register(Plan)
+
