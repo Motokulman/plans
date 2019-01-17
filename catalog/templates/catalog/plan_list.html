@@ -2,11 +2,11 @@
 
 {% block content %}
   <h1>All plans List</h1>
-  {% if plans_list %}
+  {% if plan_list %}
   <ul>
-    {% for plan in plans_list %}
+    {% for plan in plan_list %}
       <li>
-        <a href="{{ plan.get_absolute_url }}">{{ plan.name}}</a> ({{plan.author}})
+        <a href="{{ plan.get_absolute_url }}">{{ plan.name }}</a>
       </li>
     {% endfor %}
   </ul>

@@ -2,11 +2,11 @@
 
 {% block content %}
   <h1>Name: {{ plan.name }}</h1>
-
-  <p><strong>Author:</strong> <a href="{% url 'author-detail' plan.author.pk %}">{{ plan.author }}</a></p> <!-- author detail link not yet defined -->
-  <p><strong>Finalized:</strong> {{ plan.finalized }}</p>
-  <p><strong>Release Date:</strong> {{ plan.release_date }}</p>  
-  <p><strong>Genre:</strong> {% for genre in book.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>  
+  <strong>Architect:</strong> {{ plan.architect }}</p>
+  <!--<p><strong>Architect:</strong> <a href="{% url 'architect-detail' plan.architect.pk %}">{{ plan.architect }}</a></p> <!-- architect detail link not yet defined -->
+  <p><strong>Approved:</strong> {{ plan.approved}}</p>
+  <p><strong>Approve Date:</strong> {{ plan.approve_date }}</p>  
+  <!--<p><strong>Genre:</strong> {% for genre in book.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>  
 
   <div style="margin-left:20px;margin-top:20px">
     <h4>Private users</h4>
@@ -18,5 +18,5 @@
       {% endif %}
       
     {% endfor %}
-  </div>
+  </div>-->
 {% endblock %}

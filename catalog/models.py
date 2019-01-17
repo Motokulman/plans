@@ -3,6 +3,7 @@ from django.urls import reverse # Used to generate URLs by reversing the URL pat
 from django.contrib.auth.models import User
 from datetime import date
 import uuid
+from django.urls import reverse # Used to generate URLs by reversing the URL patterns
 
 
 class Visit(models.Model):
@@ -81,6 +82,6 @@ class Plan(models.Model):
         return f'{self.id} ({self.name})'
     
     def get_absolute_url(self):
-        """Returns the url to access a detail record for this FormFactor."""
+        """Returns the url to access a detail record for this Plan."""
         return reverse('plan-detail', args=[str(self.id)])
 

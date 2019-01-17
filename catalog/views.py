@@ -55,6 +55,10 @@ class PlanDetailView(generic.DetailView):
     model = Plan
     paginate_by = 10
 
+class ArchitectDetailView(generic.DetailView):
+    model = Architect
+    paginate_by = 10
+
 class PlansApplyedByConsumerListView(LoginRequiredMixin, generic.ListView, PermissionRequiredMixin, View):
     """Generic class-based view listing plans which applyed by current consumer."""
     permission_required = 'catalog.can_apply_plan'
