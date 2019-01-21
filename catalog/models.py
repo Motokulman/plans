@@ -85,3 +85,33 @@ class Plan(models.Model):
         """Returns the url to access a detail record for this Plan."""
         return reverse('plan-detail', args=[str(self.id)])
 
+class Axis(models.Model):
+    """Axis. From one border of canvas to another."""
+    x0 = models.IntegerField()
+    y0 = models.IntegerField()
+    x1 = models.IntegerField()
+    y1 = models.IntegerField()
+   
+    def __str__(self):
+        """String for representing the Model object."""
+        return f'x0 = {self.x0}, y0 = {self.y0},  x1 = {self.x1},  y1 = {self.y1}'    
+
+
+class element(models.Model):
+    """Element - it's wall or smth else on the axis. Between axises"""
+    #axis_owner = models.ForeignKey(Axis, on_delete=models.SET_NULL, null=True, blank=True, related_name='axis_owner') # need for slanted axises???
+    axis_x0 = models.ForeignKey(Axis, on_delete=models.SET_NULL, null=True, blank=True, related_name='axis_axis_x0') 
+    axis_y0 = models.ForeignKey(Axis, on_delete=models.SET_NULL, null=True, blank=True, related_name='axis_axis_y0') 
+    axis_x1 = models.ForeignKey(Axis, on_delete=models.SET_NULL, null=True, blank=True, related_name='axis_axis_x1') 
+    axis_y1 = models.ForeignKey(Axis, on_delete=models.SET_NULL, null=True, blank=True, related_name='axis_axis_y1') 
+    axis_rx = models.ForeignKey(Axis, on_delete=models.SET_NULL, null=True, blank=True, related_name='axis_axis_rx') 
+    axis_ry = models.ForeignKey(Axis, on_delete=models.SET_NULL, null=True, blank=True, related_name='axis_axis_ry') 
+    axis_centred = models.BooleanField(null=True, blank=True)
+    left_aligned = models.BooleanField(null=True, blank=True)
+    id_aligning = models.IntegerField(null=True, blank=True)
+
+  
+    def __str__(self):
+        """String for representing the Model object."""
+        return f'axis_x0 = {self.axis_x0},  axis_y0 = {self.axis_y0},  axis_x1 = {self.axis_x1}, axis_y1 = {self.axis_y1},  axis_rx = {self.axis_rx},  axis_ry = {self.axis_ry}, axis_centred = {self.axis_centred},  left_aligned = {self.left_aligned},  id_aligning = {self.id_aligning}'    
+

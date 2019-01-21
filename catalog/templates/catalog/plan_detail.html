@@ -6,6 +6,11 @@
   <!--<p><strong>Architect:</strong> <a href="{% url 'architect-detail' plan.architect.pk %}">{{ plan.architect }}</a></p> <!-- architect detail link not yet defined -->
   <p><strong>Approved:</strong> {{ plan.approved}}</p>
   <p><strong>Approve Date:</strong> {{ plan.approve_date }}</p>  
+  <canvas id="canvas" style="border: 1px solid" width="1000" height="700"></canvas>
+  {% load static %} 
+  <script type="text/javascript" src="{% static 'js/canvas.js' %}"></script>
+
+  
   <!--<p><strong>Genre:</strong> {% for genre in book.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>  
 
   <div style="margin-left:20px;margin-top:20px">
