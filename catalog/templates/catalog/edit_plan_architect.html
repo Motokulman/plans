@@ -1,6 +1,8 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+
+
   <h1>Edit: {{ plan.name }}</h1>
   <p>Architect: {{ plan.architect }}</p>
   <p>A: {{ a }}</p>
@@ -25,4 +27,18 @@
   <p>A: {{ a }}</p>
   <p>B: {{ b }}</p>
 
+  <p>
+
+    <strong id="like_count">{{ plan.likes }}</strong> people like this plan
+    
+    
+    {% if user.is_authenticated %}
+            <button id="likes" data-planid="{{plan.id}}" class="btn btn-primary" type="button">
+            <span class="glyphicon glyphicon-thumbs-up"></span>
+            Like
+            </button>
+    {% endif %}
+    
+    </p>
+    <script type="text/javascript"  src="{% static 'js/ajax-script.js' %}"></script>
 {% endblock %}

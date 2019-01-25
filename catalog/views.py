@@ -16,6 +16,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+import uuid
 
 from catalog.forms import EditPlanForm
 
@@ -135,8 +136,14 @@ def edit_plan_architect(request, pk):
 
     return render(request, 'catalog/edit_plan_architect.html', context)
 
-def save_events_json(request):
-    if request.is_ajax():
-        if request.method == 'POST':
-            print 'Raw Data: "%s"' % request.body   
-    return HttpResponse("OK")
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def like_plan(request, pk):
+    plan = get_object_or_404(Plan, pk=pk)
+    if plan:
+        likes = plan.likes + 1
+        plan.likes =  likes
+        plan.save()
+
+    return HttpResponse(likes)

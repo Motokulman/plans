@@ -78,14 +78,3 @@ function getMousePos(canvas, e) {
   };
 }
 
-var myLine = {x0: mouseOldPos.x, y0: mouseOldPos.x, x1: mouseOldPos.x, y1: mouseOldPos.x};
-$.ajax({
-url: '/event/save-json/',
-type: 'POST',
-contentType: 'application/json; charset=utf-8',
-data: $.toJSON(myLine),
-dataType: 'text',
-success: function(result) {
-alert(result.Result);
-}
-});

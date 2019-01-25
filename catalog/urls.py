@@ -15,5 +15,6 @@ urlpatterns = [
     #path('plan/<uuid:pk>/update/', views.PlanUpdate.as_view(), name='plan_update'),
     #path('plan/<uuid:pk>/delete/', views.PlanDelete.as_view(), name='plan_delete'),
     path('plan/<uuid:pk>/edit/', views.edit_plan_architect, name='edit-plan-architect'),
+    path('plan/<uuid:pk>/edit/like_plan/', views.like_plan, name='like_plan'),
 
 ]

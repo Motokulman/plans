@@ -52,6 +52,7 @@ class Plan(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular form factor across whole catalog')
     name = models.CharField(max_length=200)
     creation_date = models.DateField(null=True, blank=True)
+    likes = models.IntegerField(default=0)
 
     approved = models.BooleanField(default=False, help_text='True, if this is moderated approved plan')
     approve_date = models.DateField(null=True, blank=True)
