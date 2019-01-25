@@ -6,6 +6,9 @@
   <!--<p><strong>Architect:</strong> <a href="{% url 'architect-detail' plan.architect.pk %}">{{ plan.architect }}</a></p> <!-- architect detail link not yet defined -->
   <p><strong>Approved:</strong> {{ plan.approved}}</p>
   <p><strong>Approve Date:</strong> {{ plan.approve_date }}</p>  
+  {% if perms.catalog.can_edit_plan %}
+      <a href="{% url 'edit-plan-architect' plan.id %}">Edit</a>  
+  {% endif %}
   <canvas id="canvas" style="border: 1px solid" width="1000" height="700"></canvas>
   {% load static %} 
   <script type="text/javascript" src="{% static 'js/canvas.js' %}"></script>

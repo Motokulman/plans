@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Edit: {{ plan.name }}</h1>
+  <p>Architect: {{ plan.architect }}</p>
+  <p>A: {{ a }}</p>
+
+  <script>
+    var b = '{{ a }}';
+</script>
+    
+  <form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <canvas id="canvas" style="border: 1px solid" width="700" height="500"></canvas>
+    {% load static %} 
+    {% block js %}
+    <script type="text/javascript" src="{% static 'js/canvas.js' %}"></script>
+    {% endblock %}
+    <input type="submit" value="Submit">
+
+  </form>
+  <p>A: {{ a }}</p>
+  <p>B: {{ b }}</p>
+
+{% endblock %}

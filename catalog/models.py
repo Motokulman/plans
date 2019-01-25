@@ -75,7 +75,7 @@ class Plan(models.Model):
 
     class Meta:
         ordering = ['approve_date']
-        permissions = (("can_mark_approved", "Can set plan as approved"),("can_create_plan", "Can create plan"),("can_apply_plan", "Can apply plan"),) 
+        permissions = (("can_mark_approved", "Can set plan as approved"),("can_edit_plan", "Can edit plan"),("can_apply_plan", "Can apply plan"),) 
     
     def __str__(self):
         """String for representing the Model object."""
@@ -85,33 +85,37 @@ class Plan(models.Model):
         """Returns the url to access a detail record for this Plan."""
         return reverse('plan-detail', args=[str(self.id)])
 
-class Axis(models.Model):
-    """Axis. From one border of canvas to another."""
-    x0 = models.IntegerField()
+class Element(models.Model):
+    """Element - it's wall or smth else on the axis. Between axises"""
+    #axis_owner = models.ForeignKey(Axis, on_delete=models.SET_NULL, null=True, blank=True, related_name='axis_owner') # need for slanted axises???
+    axis_id = models.IntegerField()
+    x0 = models.IntegerField(default=50)
     y0 = models.IntegerField()
     x1 = models.IntegerField()
     y1 = models.IntegerField()
-   
-    def __str__(self):
-        """String for representing the Model object."""
-        return f'x0 = {self.x0}, y0 = {self.y0},  x1 = {self.x1},  y1 = {self.y1}'    
+    rx = models.IntegerField()
+    ry = models.IntegerField()
+    # for explicitly specify alignment. By default alignment define automatically:
+    
+    ALIGN = (
+        ('l', 'Left'),
+        ('r', 'Right'),
+        ('c', 'Center'),
+        ('a', 'Auto'),
+    )
 
+    align = models.CharField(
+        max_length=1,
+        choices=ALIGN,
+        blank=True,
+        default='c',
+        help_text='You can explicitly specify alignment option. Default = Auto',
+    )
 
-class element(models.Model):
-    """Element - it's wall or smth else on the axis. Between axises"""
-    #axis_owner = models.ForeignKey(Axis, on_delete=models.SET_NULL, null=True, blank=True, related_name='axis_owner') # need for slanted axises???
-    axis_x0 = models.ForeignKey(Axis, on_delete=models.SET_NULL, null=True, blank=True, related_name='axis_axis_x0') 
-    axis_y0 = models.ForeignKey(Axis, on_delete=models.SET_NULL, null=True, blank=True, related_name='axis_axis_y0') 
-    axis_x1 = models.ForeignKey(Axis, on_delete=models.SET_NULL, null=True, blank=True, related_name='axis_axis_x1') 
-    axis_y1 = models.ForeignKey(Axis, on_delete=models.SET_NULL, null=True, blank=True, related_name='axis_axis_y1') 
-    axis_rx = models.ForeignKey(Axis, on_delete=models.SET_NULL, null=True, blank=True, related_name='axis_axis_rx') 
-    axis_ry = models.ForeignKey(Axis, on_delete=models.SET_NULL, null=True, blank=True, related_name='axis_axis_ry') 
-    axis_centred = models.BooleanField(null=True, blank=True)
-    left_aligned = models.BooleanField(null=True, blank=True)
-    id_aligning = models.IntegerField(null=True, blank=True)
-
+    def save(self, *args, **kwargs):
+        super(Element, self).save(*args, **kwargs)
   
     def __str__(self):
         """String for representing the Model object."""
-        return f'axis_x0 = {self.axis_x0},  axis_y0 = {self.axis_y0},  axis_x1 = {self.axis_x1}, axis_y1 = {self.axis_y1},  axis_rx = {self.axis_rx},  axis_ry = {self.axis_ry}, axis_centred = {self.axis_centred},  left_aligned = {self.left_aligned},  id_aligning = {self.id_aligning}'    
+        return f'axis_id = {self.axis_id},  x0 = {self.x0},  y0 = {self.y0},  x1 = {self.x1}, y1 = {self.y1},  rx = {self.rx},  ry = {self.ry}, align = {self.align}'    
 

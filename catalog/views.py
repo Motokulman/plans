@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from catalog.models import Architect, Contractor, Consumer, Plan
+from catalog.models import Architect, Contractor, Consumer, Plan, Element
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -11,9 +11,13 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from catalog.forms import CreatePlanForm
+from catalog.forms import EditPlanForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+
+from catalog.forms import EditPlanForm
 
 def index(request):
     """View function for home page of site."""
@@ -53,11 +57,11 @@ class ApprovedPlansListView(generic.ListView):
 
 class PlanDetailView(generic.DetailView):
     model = Plan
-    paginate_by = 10
+    fields = '__all__'
 
 class ArchitectDetailView(generic.DetailView):
     model = Architect
-    paginate_by = 10
+
 
 class PlansApplyedByConsumerListView(LoginRequiredMixin, generic.ListView, PermissionRequiredMixin, View):
     """Generic class-based view listing plans which applyed by current consumer."""
@@ -81,14 +85,58 @@ class ArchitectManagePlans(LoginRequiredMixin, generic.ListView, PermissionRequi
 
 class PlanCreate(CreateView):
     model = Plan
-    fields = ['name']
-    #fields = '__all__'
+    #fields = ['name']
+    fields = '__all__'
     initial = {'name': 'My new plan'}
 
 class PlanUpdate(UpdateView):
     model = Plan
-    fields = ['name']
+    #fields = ['name']
+    fields = '__all__'
 
 class PlanDelete(DeleteView):
     model = Plan
     success_url = reverse_lazy('plans')
+
+@permission_required('catalog.can_edit_plan')
+def edit_plan_architect(request, pk):
+    """View function for editing plan by architect."""
+    a = 'aaaaaa'
+    b = 'd'
+    plan = get_object_or_404(Plan, pk=pk)
+    #element = get_object_or_404(Element, pk=plan.id)
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = EditPlanForm(request.POST)
+
+        # Check if the form is valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+            plan.name = form.cleaned_data['name']
+            plan.save()
+
+            # redirect to a new URL:
+           # return HttpResponseRedirect("" )
+            
+    # If this is a GET (or any other method) create the default form.
+    else:
+        name = 'New plan'
+        form = EditPlanForm(initial={'name': name})
+
+    context = {
+        'form': form,
+        'plan': plan,
+        'a': a,
+        'b': b,
+    }
+
+    return render(request, 'catalog/edit_plan_architect.html', context)
+
+def save_events_json(request):
+    if request.is_ajax():
+        if request.method == 'POST':
+            print 'Raw Data: "%s"' % request.body   
+    return HttpResponse("OK")

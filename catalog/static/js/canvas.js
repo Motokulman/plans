@@ -4,19 +4,18 @@ var raf;
 var running = false;
 var mouseOldPos;
 var mousePos;
+//var a = {{a}} ;
 
 var ball = {
-  // x: 100,
-  // y: 100,
-  // vx: 5,
-  // vy: 1,
-  // radius: 25,
-  // color: 'blue',
+
   draw: function() {
     ctx.beginPath();
     ctx.moveTo(mouseOldPos.x, mouseOldPos.y);
     ctx.lineTo(mousePos.x, mousePos.y);
     ctx.stroke();
+    console.log(b);
+    b='c'
+    console.log(b);
   }
 };
 
@@ -79,4 +78,14 @@ function getMousePos(canvas, e) {
   };
 }
 
-
+var myLine = {x0: mouseOldPos.x, y0: mouseOldPos.x, x1: mouseOldPos.x, y1: mouseOldPos.x};
+$.ajax({
+url: '/event/save-json/',
+type: 'POST',
+contentType: 'application/json; charset=utf-8',
+data: $.toJSON(myLine),
+dataType: 'text',
+success: function(result) {
+alert(result.Result);
+}
+});
